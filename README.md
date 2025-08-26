@@ -1,4 +1,4 @@
-# NestJS Stable Server (Exceptions + Logging + Trace ID)
+# NestJS Stable Server (Tracing)
 
 # 폴더 구조
 
