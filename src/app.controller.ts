@@ -9,4 +9,14 @@ export class AppController {
     getHello(): string {
         return this.appService.getHello();
     }
+
+    @Get('/call')
+    async callExternalService(): Promise<any> {
+        return await this.appService.callExternalService();
+    }
+
+    @Get('/ack')
+    async ack(): Promise<{ status: string }> {
+        return await Promise.resolve({ status: 'ok' });
+    }
 }

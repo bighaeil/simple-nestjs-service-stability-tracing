@@ -42,4 +42,40 @@ npm run start
 curl http://localhost:3000/health
 ```
 
+# tracing
 
+start Server A
+
+```bash
+PORT=3001 npm run start
+ ```
+
+call test
+
+```bash
+curl http://localhost:3001/call
+```
+
+A call was requested, but an error occurred in Server B.
+because Server B is not running.
+
+start Server B
+
+```bash
+PORT=3002 npm run start
+```
+
+ack test
+
+```bash
+curl http://localhost:3002/ack
+```
+
+A call was requested, and Server B responded normally.
+Server A and Server B logs contain the same traceId.
+
+## call Server A to Server B
+
+```bash
+curl http://localhost:3001/call
+```
