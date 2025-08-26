@@ -1,5 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
+import { asyncLocalStorage } from '../interceptors/tracing.interceptor';
 
 @Injectable()
 export class TraceIdMiddleware implements NestMiddleware {
@@ -9,8 +10,12 @@ export class TraceIdMiddleware implements NestMiddleware {
             (Array.isArray(incoming) ? incoming[0] : incoming) || uuidv4();
 
         req.traceId = traceId;
-        res.setHeader('X-Trace-Id', traceId);
+        req.headers['x-trace-id'] = traceId;
+        res.setHeader('x-trace-id', traceId);
 
-        next();
+        // AsyncLocalStorage에 traceId 저장
+        asyncLocalStorage.run({ traceId }, () => {
+            next();
+        });
     }
 }
