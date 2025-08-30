@@ -17,6 +17,8 @@ export class AppController {
 
     @Get('/ack')
     async ack(): Promise<{ status: string }> {
-        return await Promise.resolve({ status: 'ok' });
+        // 100ms 딜레이 추가
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        return { status: 'ok' };
     }
 }
